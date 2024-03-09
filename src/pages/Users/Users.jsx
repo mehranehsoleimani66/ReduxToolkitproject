@@ -10,7 +10,7 @@ export default function Users() {
   const dispath = useDispatch();
   console.log(users);
   useEffect(() => {
-    dispath(getUserFromServer("https://dummyjson.com/users"));
+    dispath(getUserFromServer("https://redux-cms.iran.liara.run/api/users/"));
   }, []);
   return (
     <div className="col-8 content px-0">
@@ -71,7 +71,7 @@ export default function Users() {
           <div className="users__list-container">
             <div className="users__list users__list-wrapper">
               {users.map((user) => (
-                <UserItem key={user.id} {...user} />
+                <UserItem key={user._id} {...user} />
               ))}
             </div>
           </div>

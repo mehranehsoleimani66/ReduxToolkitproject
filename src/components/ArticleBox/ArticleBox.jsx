@@ -1,6 +1,28 @@
 import React from "react";
+import {useDispatch} from "react-redux"
+import swal from "sweetalert"
+import { removeArticle } from "../../Redux/store/articles";
+export default function ArticleBox({_id,title,category,views,desc}) {
+  
 
-export default function ArticleBox() {
+  const dispatch = useDispatch(_id);
+  const removeHandler = () => {
+    swal({
+      title: "ایا مطمین هستید؟",
+      icon: "warning",
+      buttons: ["نه","اره" ]
+    }).then((res) => {
+      if (res) {
+        dispatch(removeArticle(_id));
+        swal({
+          title:"پاک شد...   ",icon:"success",buttons:["ok"]
+    
+        })
+      }
+    });
+  };
+
+
   return (
     <div className="articles__item">
       <img
@@ -10,10 +32,9 @@ export default function ArticleBox() {
       />
       <div className="articles__details w-100">
         <div className="articles__info">
-          <h3 className="articles__name">دوره متخصص ریداکس</h3>
+          <h3 className="articles__name">{title}</h3>
           <p className="articles__short-desc">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Deleniti
-            ullam voluptates impedit incidunt
+           {desc}
           </p>
         </div>
         <div className="articles__tags">
@@ -22,19 +43,19 @@ export default function ArticleBox() {
               <span className="fa fa-tags"></span>
               <p className="articles__tag-text articles__category my-0">
                 <span>دسته بندی :</span>
-                <span className="articles__category-value">فرانت‌اند</span>
+                <span className="articles__category-value">{category}</span>
               </p>
             </div>
             <div className="articles__visited-box d-flex gap-2 align-items-center">
               <span className="fa fa-users"></span>
               <p className="articles__tag-text articles__visited my-0">
                 <span>تعداد بازدید :</span>
-                <span className="articles__visited-count">23</span>
+                <span className="articles__visited-count">{views}</span>
               </p>
             </div>
           </div>
           <div className="articles__btns">
-            <button className="op-btn btn btn-danger btn-lg">حذف</button>
+            <button className="op-btn btn btn-danger btn-lg" onClick={removeHandler}>حذف</button>
             <button className="op-btn btn btn-info btn-lg">ویرایش</button>
           </div>
         </div>

@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
-export const getUserFromServer = createAsyncThunk(
-  "users/getUserFromServer",
+export const getArticlesFromServer = createAsyncThunk(
+  "articles/getArticlesFromServer",
   async (url) => {
 
     return fetch(url)
@@ -9,11 +9,11 @@ export const getUserFromServer = createAsyncThunk(
       .then((data) => data);
   }
 );
-export const removeUserFromServer = createAsyncThunk(
-  "users/removeUserFromServer",
+export const removeArticle = createAsyncThunk(
+  "articles/removeArticle",
   async (id) => {
 
-    return fetch(`https://redux-cms.iran.liara.run/api/users/${id}`,{method:"DELETE"})
+    return fetch(`https://redux-cms.iran.liara.run/api/articles/${id}`,{method:"DELETE"})
       .then((res) => res.json())
       .then((data) => data);
   }
@@ -21,18 +21,18 @@ export const removeUserFromServer = createAsyncThunk(
 
 
 const slice = createSlice({
-    name: "users",
+    name: "articles",
     initialState: [],
     reducers: {
      },
       extraReducers: (builder) => {
-        builder.addCase(getUserFromServer.fulfilled, (state, action) => {
+        builder.addCase(getArticlesFromServer.fulfilled, (state, action) => {
         console.log(action,"action")
          state.push(...action.payload)
         //   console.log(state, "state2");
         }),
-        builder.addCase(removeUserFromServer.fulfilled, (state, action) => {
-         const newState = state.filter((user)=>user._id!==action.payload.id)
+        builder.addCase(removeArticle.fulfilled, (state, action) => {
+         const newState = state.filter((article)=>article._id!==action.payload.id)
          return newState
           });
       }

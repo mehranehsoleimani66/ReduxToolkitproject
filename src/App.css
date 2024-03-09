@@ -686,6 +686,10 @@ body {
   background-color: var(--secondry-light);
   color: var(--light);
 }
+.swal-footer{
+  display: flex;
+  justify-content: center;
+}
 
 /* End Dark Mode */
 
