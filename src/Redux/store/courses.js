@@ -4,13 +4,21 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 export const getCoursesFromServer = createAsyncThunk(
   "courses/getCoursesFromServer",
   async (url) => {
-console.log(url)
+
     return fetch(url)
       .then((res) => res.json())
       .then((data) =>(data));
   }
 );
+export const removeCourse = createAsyncThunk(
+  "courses/removeCourse",
+  async (id) => {
 
+    return fetch(`https://redux-cms.iran.liara.run/api/courses/${id}`,{method:"DELETE"})
+      .then((res) => res.json())
+      .then((data) => data);
+  }
+);
 
 const slice = createSlice({
     name: "courses",
@@ -19,11 +27,14 @@ const slice = createSlice({
      },
       extraReducers: (builder) => {
         builder.addCase(getCoursesFromServer.fulfilled, (state, action) => {
-        console.log(action,"action")
-        console.log(state,"state")
          state.push(...action.payload)
-        //   console.log(state, "state2");
-        });
+      
+        }),
+
+        builder.addCase(removeCourse.fulfilled, (state, action) => {
+          const newState = state.filter((course)=>course._id!==action.payload.id)
+          return newState
+           });
       }
     
   });

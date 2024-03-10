@@ -13,7 +13,7 @@ export default function UserItem({ _id, firstname, lastname }) {
       if (res) {
         dispatch(removeUserFromServer(_id));
         swal({
-          title:"پاک شد...   ",icon:"success",buttons:["ok"]
+          title:"  کاربر موردنظر پاک شد    ",icon:"success",buttons:["ok"]
     
         })
       }

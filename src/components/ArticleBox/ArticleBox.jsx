@@ -15,7 +15,7 @@ export default function ArticleBox({_id,title,category,views,desc}) {
       if (res) {
         dispatch(removeArticle(_id));
         swal({
-          title:"پاک شد...   ",icon:"success",buttons:["ok"]
+          title:" مقاله مورد نظر پاک شد    ",icon:"success",buttons:["ok"]
     
         })
       }
